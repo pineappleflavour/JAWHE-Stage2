@@ -1,11 +1,11 @@
-package com.airline.checkin;
+package com.airline.view;
 
-import com.airline.flight.FlightRepository;
-import com.airline.flight.FlightView;
-import com.airline.logging.Logger;
-import com.airline.passenger.PassengerRepository;
-import com.airline.queue.BusinessQueueManager;
-import com.airline.queue.EconomyQueueManager;
+import com.airline.app.CheckInDesk;
+import com.airline.app.queue.BusinessQueueManager;
+import com.airline.app.queue.EconomyQueueManager;
+import com.airline.logger.Logger;
+import com.airline.repository.FlightRepository;
+import com.airline.repository.PassengerRepository;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

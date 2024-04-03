@@ -1,12 +1,12 @@
-package com.airline.checkin;
+package com.airline.app;
 
-import com.airline.baggage.BaggageService;
-import com.airline.flight.Flight;
-import com.airline.flight.FlightRepository;
-import com.airline.logging.Logger;
-import com.airline.passenger.Passenger;
-import com.airline.passenger.PassengerRepository;
-import com.airline.queue.PassengerQueueManager;
+import com.airline.app.queue.PassengerQueueManager;
+import com.airline.logger.Logger;
+import com.airline.model.Flight;
+import com.airline.model.Passenger;
+import com.airline.repository.FlightRepository;
+import com.airline.repository.PassengerRepository;
+import com.airline.service.BaggageService;
 
 import javax.swing.*;
 public class CheckInDesk implements Runnable {

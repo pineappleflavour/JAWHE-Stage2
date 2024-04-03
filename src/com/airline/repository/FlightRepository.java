@@ -1,4 +1,6 @@
-package com.airline.flight;
+package com.airline.repository;
+
+import com.airline.model.Flight;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

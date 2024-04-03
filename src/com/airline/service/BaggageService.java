@@ -1,6 +1,6 @@
-package com.airline.baggage;
-import com.airline.passenger.*;
-import com.airline.flight.*;
+package com.airline.service;
+import com.airline.model.Flight;
+import com.airline.model.Passenger;
 
 public class BaggageService {
     public static Double calculateExcessBaggage(Passenger passengerInfo, Flight flightInfo) {

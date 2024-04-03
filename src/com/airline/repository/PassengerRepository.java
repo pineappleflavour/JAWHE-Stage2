@@ -1,13 +1,13 @@
-package com.airline.passenger;
+package com.airline.repository;
+
+import com.airline.model.Passenger;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
 
 public class PassengerRepository {
     private static Map<String, Passenger> passengers = new HashMap<>();
