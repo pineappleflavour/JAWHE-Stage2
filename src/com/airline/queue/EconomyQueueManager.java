@@ -7,7 +7,7 @@ public class EconomyQueueManager extends PassengerQueueManager{
     @Override
     public void addPassengerToQueue() {
             for (Passenger passenger : passengerRepo.getPassengers().values()) {
-                if (passenger.getCheckedIn().equals(false) && passenger.getPassengerClass().equalsIgnoreCase("economy")) {
+                if (passenger.getCheckedIn().equals(false) && passenger.getPassengerClass().equalsIgnoreCase("economy") && passenger.getMissedFlight().equals(false)) {
                     passengerQueue.add(passenger);
                     delayProcessing();
                 }

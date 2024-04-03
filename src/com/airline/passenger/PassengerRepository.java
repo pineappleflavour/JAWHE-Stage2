@@ -5,15 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
-// Repository class for managing passengers
 public class PassengerRepository {
     private static Map<String, Passenger> passengers = new HashMap<>();
-
-    // Constructor to initialize PassengerRepository
     public PassengerRepository() {
-        String csvFilePath ="AirlineCheckInSystem/data/passenger.csv";
+        String csvFilePath ="data/passenger.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
             boolean isFirstLine = true;
@@ -57,7 +56,7 @@ public class PassengerRepository {
         }
     }
 
-    // Method to perform check-in based on booking reference
+
     public void checkInByBookingRef(String bookingRef) {
         passengers.computeIfPresent(bookingRef.toUpperCase(), (key, passenger) -> {
             passenger.setCheckedIn(true);
@@ -66,13 +65,13 @@ public class PassengerRepository {
         });
     }
 
-    // Method to retrieve all passengers
     public Map<String, Passenger> getPassengers() {
         return passengers;
     }
 
-    // Method to print details of all passengers
     public void printAllPassengers() {
         passengers.values().forEach(System.out::println);
     }
+
+
 }

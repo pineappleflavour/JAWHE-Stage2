@@ -9,7 +9,7 @@ public class BusinessQueueManager extends PassengerQueueManager{
     @Override
     public void addPassengerToQueue() {
             for (Passenger passenger : passengerRepo.getPassengers().values()) {
-                if (passenger.getCheckedIn().equals(false) && passenger.getPassengerClass().equalsIgnoreCase("business") ) {
+                if (passenger.getCheckedIn().equals(false) && passenger.getPassengerClass().equalsIgnoreCase("business") && passenger.getMissedFlight().equals(false)) {
                     passengerQueue.add(passenger);
                     delayProcessing();
                 }

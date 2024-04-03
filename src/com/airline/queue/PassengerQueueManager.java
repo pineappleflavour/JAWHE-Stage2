@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import com.airline.passenger.*;
 
-public abstract class PassengerQueueManager  implements Runnable {
+public class PassengerQueueManager implements Runnable {
     protected PassengerRepository passengerRepo;
     protected Queue<Passenger> passengerQueue = new LinkedList<>();
     private volatile Integer processingDelay = 1000;
