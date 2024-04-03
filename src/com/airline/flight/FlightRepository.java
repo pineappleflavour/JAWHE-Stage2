@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
-public class FlightRepository {
+public class FlightRepository extends Observable {
     private static Map<String, Flight> flights = new HashMap<>();
-
     public FlightRepository() {
-        String csvFilePath = "data/flight.csv";
+        String csvFilePath ="data/flight.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
             boolean isFirstLine = true;
@@ -32,7 +32,7 @@ public class FlightRepository {
                     }
 
                     // Create an instance of Passenger and add it to the map
-                    Flight flight = new Flight(
+                    Flight  flight = new Flight(
                             fileDetails.get("flightCode"),
                             fileDetails.get("destination"),
                             LocalDateTime.parse(fileDetails.get("departureTime")),
@@ -59,39 +59,27 @@ public class FlightRepository {
         }
     }
 
-    public Flight findByFlightCode(String flightCode) {
-        // Search for a flight by its flight code
+    public Flight findByFlightCode(String flightCode){
         for (Map.Entry<String, Flight> entry : flights.entrySet()) {
-            if (entry.getKey().equals(flightCode)) {
-                return entry.getValue(); // Return the flight if found
+            if (entry.getKey().equals(flightCode)){
+                return entry.getValue();
             }
         }
-        return null; // Return null if the flight with the given flight code is not found
+        return null;
     }
 
     public Map<String, Flight> getFlights() {
-        return flights; // Return the map of flights
+        return flights;
     }
-
-    public void updateFlightInfo(String flightCode, Double baggageVolume, Double baggageWeight, Double chargeFee) {
-        // Update flight information with the provided data
-        Flight flightInfo = findByFlightCode(flightCode); // Find the flight by its flight code
+    public void updateFlightInfo(String flightCode, Double baggageVolume, Double baggageWeight, Double chargeFee){
+        Flight flightInfo = findByFlightCode(flightCode);
         if (flightInfo != null) {
-            // Update the flight's total collected excess baggage fee, total baggage weight, total baggage volume, and total checked-in passengers
             flightInfo.setTotalCollectedExcessBaggageFee(chargeFee);
             flightInfo.setTotalBaggageWeight(baggageWeight);
             flightInfo.setTotalBaggageVolume(baggageVolume);
             flightInfo.setTotalCheckedIn();
-        }
-    }
-
-    public int getTotalCheckedInPassengers(String flightCode) {
-        // Get the total number of checked-in passengers for a specific flight
-        Flight flight = findByFlightCode(flightCode); // Find the flight by its flight code
-        if (flight != null) {
-            return flight.getTotalCheckedIn(); // Return the total number of checked-in passengers if the flight is found
-        } else {
-            return 0; // Return 0 if the flight with the given code was not found
+            setChanged();
+            notifyObservers(flights);
         }
     }
 }

@@ -2,42 +2,37 @@ package com.airline.flight;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Flight {
-    private String flightCode;
-    private String destination;
-    private LocalDateTime departureTime;
-    private String carrier;
-    private Integer capacity;
-    private Double allowedBaggageWeight;
-    private Double allowedBaggageVolume;
-    private Double maxBaggageWeight;
-    private Double maxBaggageVolume;
-    private Double excessBaggageFee;
-    private Integer totalCheckedIn;
-    private Double totalBaggageWeight;
-    private Double totalBaggageVolume;
-    private Double totalCollectedExcessBaggageFee;
+    private final String flightCode;
+    private final String destination;
+    private final LocalDateTime departureTime;
+    private final String carrier;
+    private final Integer capacity;
+    private final Double allowedBaggageWeight;
+    private final Double allowedBaggageVolume;
+    private final Double maxBaggageWeight;
+    private final Double maxBaggageVolume;
+    private final Double excessBaggageFee;
+    private  Integer totalCheckedIn;
+    private  Double totalBaggageWeight;
+    private  Double totalBaggageVolume;
+    private  Double totalCollectedExcessBaggageFee;
 
     public Flight(String flightCode, String destination, LocalDateTime departureTime, String carrier, Integer capacity, Double allowedBaggageWeight, Double allowedBaggageVolume, Double maxBaggageWeight, Double maxBaggageVolume, Double excessBaggageFee, Integer totalCheckedIn, Double totalBaggageWeight, Double totalBaggageVolume, Double totalCollectedExcessBaggageFee ) {
-        // Check for null parameters
         if (flightCode == null || destination == null || departureTime == null || carrier == null) {
             throw new IllegalArgumentException("Parameters flightCode, destination, departureTime, carrier cannot be null");
         }
 
-        // Check for empty string parameters
         if (flightCode.trim().isEmpty() || destination.trim().isEmpty() || carrier.trim().isEmpty()) {
             throw new IllegalArgumentException("String parameters flightCode, destination, carrier cannot be empty");
         }
 
-        // Check for non-positive numeric parameters
         if (capacity <= 0 || allowedBaggageWeight <= 0 || allowedBaggageVolume <= 0 || maxBaggageWeight <= 0 || maxBaggageVolume <= 0 || excessBaggageFee < 0 || totalCheckedIn < 0 || totalBaggageWeight < 0 || totalBaggageVolume < 0 || totalCollectedExcessBaggageFee < 0) {
             throw new IllegalArgumentException("Numeric parameters capacity, allowedBaggageWeight, allowedBaggageVolume, maxBaggageWeight, maxBaggageVolume, excessBaggageFee, totalCheckedIn must be positive");
         }
 
-        // Initialize flight properties
+
         this.flightCode = flightCode;
         this.destination = destination;
         this.departureTime = departureTime;
@@ -54,7 +49,6 @@ public class Flight {
         this.totalCollectedExcessBaggageFee = totalCollectedExcessBaggageFee;
     }
 
-    // Getter methods for flight properties
     public String getFlightCode() {
         return flightCode;
     }
@@ -75,33 +69,6 @@ public class Flight {
     }
     public Double getMaxBaggageVolume() {
         return maxBaggageVolume;
-    }
-
-    // Listeners for flight changes
-    private List<FlightChangeListener> listeners = new ArrayList<>();
-
-    public void addFlightChangeListener(FlightChangeListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeFlightChangeListener(FlightChangeListener listener) {
-        listeners.remove(listener);
-    }
-
-    // Notify listeners about changes in total checked-in passengers
-    private void notifyTotalCheckedInChanged() {
-        for (FlightChangeListener listener : listeners) {
-            listener.onTotalCheckedInChanged(this, totalCheckedIn);
-        }
-    }
-
-    // Setter method for total checked-in passengers
-    public void setTotalCheckedIn(int totalCheckedIn) {
-        this.totalCheckedIn = totalCheckedIn;
-        notifyTotalCheckedInChanged();
-    }
-    public int getTotalCheckedInPassengers() {
-        return totalCheckedIn;
     }
     public Double getExcessBaggageFee() {
         return excessBaggageFee;
@@ -126,28 +93,37 @@ public class Flight {
     public Double getTotalCollectedExcessBaggageFee(){
         return totalCollectedExcessBaggageFee;
     }
-
-    // Increment total checked-in passengers by one
     public void setTotalCheckedIn() {
-        this.totalCheckedIn++;
+        this.totalCheckedIn ++ ;
     }
-    // Add to total baggage weight
-    public void setTotalBaggageWeight(Double BaggageWeight) {
-        this.totalBaggageWeight += BaggageWeight;
+    public void setTotalBaggageWeight(Double baggageWeight) {
+        this.totalBaggageWeight += baggageWeight;
     }
-    // Add to total baggage volume
-    public void setTotalBaggageVolume(Double BaggageVolume) {
-        this.totalBaggageVolume += BaggageVolume;
+    public void setTotalBaggageVolume(Double baggageVolume) {
+        this.totalBaggageVolume += baggageVolume;
     }
-    // Add to total collected excess baggage fee
+
+    public String getTotalVolumeHoldCapacity(){
+        return String.format( "%.2f", (totalBaggageVolume/maxBaggageVolume) * 100);
+    }
+    public String getTotalWeightHoldCapacity(){
+        return String.format("%.2f", (totalBaggageWeight/maxBaggageWeight) * 100);
+    }
     public void setTotalCollectedExcessBaggageFee(Double chargeFee){
         this.totalCollectedExcessBaggageFee += chargeFee;
     }
-    // Check if the flight is departing within the next 5 minutes
     public Boolean isDeparting(){
         LocalDateTime currentTime = LocalDateTime.now();
         long minutesUntilDeparture = ChronoUnit.MINUTES.between(currentTime, departureTime);
         return  minutesUntilDeparture <= 5;
     }
 
+
+    public String toString(){
+        return  "Flight " + carrier + " to " + destination + "\n" +
+                "Capacity: " + totalCheckedIn + " of " + capacity + "\n" +
+                "Weight Hold Capacity: " + getTotalWeightHoldCapacity() + "%\n" +
+                "Volume Hold Capacity: " + getTotalVolumeHoldCapacity() + "%\n"
+                ;
+    }
 }
