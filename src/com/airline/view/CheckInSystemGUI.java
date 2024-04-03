@@ -151,7 +151,7 @@ public class CheckInSystemGUI extends JFrame {
     private void updateBusinessQueueDisplay( BusinessQueueManager businessQueue ){
         SwingUtilities.invokeLater(() -> {
             DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Booking Ref", "Passenger Name", "Baggage Weight", "Baggage Dimension" }, 0);
-            new LinkedList<>(businessQueue.getPassengerQueue()).forEach(passenger -> tableModel.addRow(new Object[]{ passenger.getBookingRef(),
+            new LinkedList<>(businessQueue.getPassengerQueue()).stream().forEach(passenger -> tableModel.addRow(new Object[]{ passenger.getBookingRef(),
                     passenger.getFullName(),
                     String.format("%.2f Kg", passenger.getBaggageWeight()),
                     passenger.getBaggageDimension()
@@ -167,7 +167,7 @@ public class CheckInSystemGUI extends JFrame {
     private void updateEconomyQueueDisplay( EconomyQueueManager economyQueue ){
         SwingUtilities.invokeLater(() ->{
             DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Booking Ref", "Passenger Name", "Baggage Weight", "Baggage Dimension" }, 0);
-            new LinkedList<>(economyQueue.getPassengerQueue()).forEach(passenger -> tableModel.addRow(new Object[]{ passenger.getBookingRef(),
+            new LinkedList<>(economyQueue.getPassengerQueue()).stream().forEach(passenger -> tableModel.addRow(new Object[]{ passenger.getBookingRef(),
                     passenger.getFullName(),
                     String.format("%.2f Kg", passenger.getBaggageWeight()),
                     passenger.getBaggageDimension()
