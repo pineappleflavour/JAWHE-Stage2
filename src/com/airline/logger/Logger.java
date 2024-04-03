@@ -1,4 +1,4 @@
-package com.airline.logging;
+package com.airline.logger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

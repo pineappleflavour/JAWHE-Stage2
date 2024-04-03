@@ -1,9 +1,12 @@
-package com.airline.flight;
+package com.airline.view;
+
+import com.airline.model.Flight;
+import com.airline.repository.FlightRepository;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class FlightView implements Observer {
     private Map<String, Flight> flightView;

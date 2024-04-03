@@ -1,4 +1,4 @@
-package com.airline.passenger;
+package com.airline.model;
 
 public class Passenger {
     private final String bookingRef;

@@ -1,4 +1,4 @@
-package com.airline.logging;
+package com.airline.logger;
 
 public enum LogLevel {
     INFO,

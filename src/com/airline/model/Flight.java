@@ -1,4 +1,4 @@
-package com.airline.flight;
+package com.airline.model;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
