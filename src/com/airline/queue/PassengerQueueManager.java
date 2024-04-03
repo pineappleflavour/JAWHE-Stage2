@@ -1,7 +1,6 @@
 package com.airline.queue;
 
 import java.util.LinkedList;
-import java.util.Observable;
 import java.util.Queue;
 import com.airline.passenger.*;
 
