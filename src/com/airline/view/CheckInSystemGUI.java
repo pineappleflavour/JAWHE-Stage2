@@ -143,8 +143,17 @@ public class CheckInSystemGUI extends JFrame {
         setCheckInDeskButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               checkInDeskTime = Integer.parseInt(checkInDeskTimer.getText().trim());
-               adjustCheckInDeskTImer();
+                try {
+                    Integer deskTime = Integer.parseInt(checkInDeskTimer.getText().trim());
+                    if (deskTime <= 0) {
+                        throw new NumberFormatException();
+                    }
+                    checkInDeskTime = deskTime;
+                    adjustCheckInDeskTImer();
+                    JOptionPane.showMessageDialog(null, "Check-in desk time has been adjusted to "+ checkInDeskTime +" seconds", "Success", JOptionPane.PLAIN_MESSAGE);
+                } catch (NumberFormatException exception) {
+                    JOptionPane.showMessageDialog(null, "Check-in desk time should be a positive number", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
